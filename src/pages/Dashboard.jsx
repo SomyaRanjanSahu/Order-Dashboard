@@ -23,6 +23,18 @@ const Dashboard = () => {
   // Calculating the total number of orders
   const totalOrders = mockData.results.length;
 
+  // Merging the order data with timestamps data
+  const mergedData = mockData.results.map((order) => {
+    const matchingTimestamp = timestamps.results.find(
+      (timestamp) => timestamp["&id"] === order["&id"]
+    );
+
+    return {
+      ...order,
+      orderSubmitted: matchingTimestamp?.timestamps.orderSubmitted || "N/A",
+    };
+  });;
+
   return (
     <div>
       <div className={styles.header}>
@@ -50,7 +62,7 @@ const Dashboard = () => {
             title="Selected Order Timestamps"
           />
         </div>
-        <List rows={mockData.results} />
+        <List rows={mergedData} />
       </div>
     </div>
   );

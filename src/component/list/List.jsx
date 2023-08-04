@@ -20,7 +20,7 @@ const List = ({ rows }) => {
       </thead>
       <tbody>
         {rows.map((row) => (
-          <ListRow>
+          <ListRow key={row["&id"]}>
             <ListRowCell>{row["&id"]}</ListRowCell>
             <ListRowCell>{row.executionDetails.buySellIndicator}</ListRowCell>
             <ListRowCell>{row.executionDetails.orderStatus}</ListRowCell>
