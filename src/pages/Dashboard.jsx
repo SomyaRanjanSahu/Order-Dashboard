@@ -20,10 +20,13 @@ const Dashboard = () => {
   const [selectedOrderDetails, setSelectedOrderDetails] = useState({});
   const [selectedOrderTimeStamps, setSelectedOrderTimeStamps] = useState({});
 
+  // Calculating the total number of orders
+  const totalOrders = mockData.results.length;
+
   return (
     <div>
       <div className={styles.header}>
-        <HeaderTitle primaryTitle="Orders" secondaryTitle="5 orders" />
+        <HeaderTitle primaryTitle="Orders" secondaryTitle={`${totalOrders} orders`} />
         <div className={styles.actionBox}>
           <Search
             value={searchText}
