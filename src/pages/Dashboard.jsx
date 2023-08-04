@@ -62,7 +62,7 @@ const Dashboard = () => {
             title="Selected Order Timestamps"
           />
         </div>
-        <List rows={mergedData} />
+        <List rows={mergedData} currency={currency} />
       </div>
     </div>
   );
