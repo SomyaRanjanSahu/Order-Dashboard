@@ -17,11 +17,26 @@ import Card from "../component/card/Card";
 const Dashboard = () => {
   const [currency, setCurrency] = useState("EUR");
   const [searchText, setSearchText] = useState("");
+  const [rowKey, setRowKey] = useState("");
   const [selectedOrderDetails, setSelectedOrderDetails] = useState({});
   const [selectedOrderTimeStamps, setSelectedOrderTimeStamps] = useState({});
 
   // Calculating the total number of orders
   const totalOrders = mockData.results.length;
+
+  const rows = mockData.results
+  const orders = timestamps.results
+
+  // combined the two different json file into a single json object for better use
+  const data = rows.map((rows, index) => ({ ...rows, ...orders[index] }))
+
+  const handleRowClick = (itemId) => {
+    const selectedData = data.find((item) => item["&key"] === itemId)
+
+    setRowKey(selectedData["&key"])
+    setSelectedOrderDetails(selectedData.executionDetails)
+    setSelectedOrderTimeStamps(selectedData.timestamps)
+  };
 
   return (
     <div>
@@ -76,13 +91,15 @@ const Dashboard = () => {
           <Card
             cardData={selectedOrderDetails}
             title="Selected Order Details"
+            rowKey={rowKey}
           />
           <Card
             cardData={selectedOrderTimeStamps}
             title="Selected Order Timestamps"
+            rowKey={rowKey}
           />
         </div>
-        <List rows={mockData.results} orders={timestamps.results} currency={currency} search={searchText} />
+        <List rows={mockData.results} orders={timestamps.results} currency={currency} search={searchText} onRowClick={handleRowClick} />
       </div>
     </div>
   );

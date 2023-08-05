@@ -6,7 +6,7 @@ import ListHeaderCell from "./ListHeaderCell";
 
 import styles from "./List.module.css";
 
-const List = ({ rows, orders, currency, search }) => {
+const List = ({ rows, orders, currency, search, onRowClick }) => {
 
 	// this function holds the data which is merged with the timestamp data
 	const data = rows.map((rows, index) => ({ ...rows, ...orders[index] }))
@@ -27,12 +27,12 @@ const List = ({ rows, orders, currency, search }) => {
 			</thead>
 			<tbody>
 				{filteredItem.map((row) => (
-					<ListRow key={row["&key"]}>
+					<ListRow key={row["&key"]} item={row} onRowClick={onRowClick}>
 						<ListRowCell>{row["&id"]}</ListRowCell>
 						<ListRowCell>{row.executionDetails.buySellIndicator}</ListRowCell>
 						<ListRowCell>{row.executionDetails.orderStatus}</ListRowCell>
 						<ListRowCell>{row.timestamps.orderSubmitted}</ListRowCell>
-						<ListRowCell>{row.bestExecutionData.orderVolume[currency]}</ListRowCell> 
+						<ListRowCell>{row.bestExecutionData.orderVolume[currency]}</ListRowCell>
 					</ListRow>
 				))}
 			</tbody>
