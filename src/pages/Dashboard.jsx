@@ -23,18 +23,6 @@ const Dashboard = () => {
   // Calculating the total number of orders
   const totalOrders = mockData.results.length;
 
-  // Merging the order data with timestamps data
-  const mergedData = mockData.results.map((order) => {
-    const matchingTimestamp = timestamps.results.find(
-      (timestamp) => timestamp["&id"] === order["&id"]
-    );
-
-    return {
-      ...order,
-      orderSubmitted: matchingTimestamp?.timestamps.orderSubmitted || "N/A",
-    };
-  });;
-
   return (
     <div>
       <div className={styles.header}>
@@ -45,7 +33,39 @@ const Dashboard = () => {
             onChange={(e) => setSearchText(e.target.value)}
           />
           <Dropdown
-            options={["GBP", "USD", "JPY", "EUR"]}
+            options={[
+              "AUD",
+              "BGN",
+              "BRL",
+              "CAD",
+              "CHF",
+              "CNY",
+              "CZK",
+              "DKK",
+              "EUR",
+              "GBP",
+              "HKD",
+              "HRK",
+              "HUF",
+              "IDR",
+              "ILS",
+              "INR",
+              "JPY",
+              "KRW",
+              "MXN",
+              "MYR",
+              "NOK",
+              "NZD",
+              "PHP",
+              "PLN",
+              "RON",
+              "SEK",
+              "SGD",
+              "THB",
+              "TRY",
+              "USD",
+              "ZAR",
+            ]}
             onChange={(e) => setCurrency(e.target.value)}
             selectedItem={currency}
           />
@@ -62,7 +82,7 @@ const Dashboard = () => {
             title="Selected Order Timestamps"
           />
         </div>
-        <List rows={mergedData} currency={currency} />
+        <List rows={mockData.results} orders={timestamps.results} currency={currency} search={searchText} />
       </div>
     </div>
   );
