@@ -27,7 +27,7 @@ const List = ({ rows, orders, currency, search }) => {
 			</thead>
 			<tbody>
 				{filteredItem.map((row) => (
-					<ListRow>
+					<ListRow key={row["&key"]}>
 						<ListRowCell>{row["&id"]}</ListRowCell>
 						<ListRowCell>{row.executionDetails.buySellIndicator}</ListRowCell>
 						<ListRowCell>{row.executionDetails.orderStatus}</ListRowCell>
